@@ -3,11 +3,13 @@ package com.example.cmsc355.hungr;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         pingYelpAPI apiResponse = new pingYelpAPI();
         apiResponse.execute();
+        TextView firstBizName = (TextView) findViewById(R.id.restaurantName);
+        firstBizName.setText("Hi");
     }
 
     private class pingYelpAPI extends AsyncTask<String, String, String> {
@@ -33,9 +37,11 @@ public class MainActivity extends AppCompatActivity {
                     "FtZpcHv3NFy3gKd-XxvvSDmN3Gk");
             apiResponse = apiCall.searchForBusinessesByLocation("food", "Richmond, VA");
             try{
-                JSONObject apiR = new JSONObject(apiResponse);
-                JSONArray businessArray = apiR.getJSONArray("businesses");
-                System.out.println(businessArray.getJSONObject(0).toString(4));
+                JSONObject apiResponseJSON = new JSONObject(apiResponse);
+                JSONArray businessJSONArray = apiResponseJSON.getJSONArray("businesses");
+                JSONObject firstBusiness = businessJSONArray.getJSONObject(0);
+
+
             }
             catch(Exception e){
                 System.out.println("Fail 1");
