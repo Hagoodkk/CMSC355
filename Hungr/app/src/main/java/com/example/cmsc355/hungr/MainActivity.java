@@ -1,5 +1,6 @@
 package com.example.cmsc355.hungr;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -91,6 +92,9 @@ public class MainActivity extends AppCompatActivity{
             getFoodButton.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v){
                     System.out.println("Button pressed!");
+                    Intent restaurantSuggestionIntent = new Intent(getApplicationContext(), RestaurantSuggestionActivity.class);
+                    restaurantSuggestionIntent.putExtra("getData", masterArray.toString());
+                    startActivity(restaurantSuggestionIntent);
                 }
             });
         }
