@@ -32,9 +32,15 @@ public class MainActivity extends AppCompatActivity{
     protected void onStart() {
         super.onStart();
 
-        //Execute background task to get information from API
-        pingYelpAPI apiResponse = new pingYelpAPI();
-        apiResponse.execute();
+        //Execute background task to get information from API when button pressed
+        Button getFoodButton = (Button) findViewById(R.id.getFoodButton);
+        getFoodButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                pingYelpAPI apiResponse = new pingYelpAPI();
+                apiResponse.execute();
+            }
+        });
+
     }
 
 
@@ -88,17 +94,13 @@ public class MainActivity extends AppCompatActivity{
             }catch(Exception e){}
 
             //Activate the main button after API has been pinged, and masterArray filled
-            Button getFoodButton = (Button) findViewById(R.id.getFoodButton);
-            getFoodButton.setOnClickListener(new View.OnClickListener(){
-                public void onClick(View v){
-                    System.out.println("Button pressed!");
-                    Intent restaurantSuggestionIntent = new Intent(getApplicationContext(), RestaurantSuggestionActivity.class);
-                    restaurantSuggestionIntent.putExtra("getData", masterArray.toString());
-                    startActivity(restaurantSuggestionIntent);
-                }
-            });
+
+            Intent restaurantSuggestionIntent = new Intent(getApplicationContext(), RestaurantSuggestionActivity.class);
+            restaurantSuggestionIntent.putExtra("getData", masterArray.toString());
+            startActivity(restaurantSuggestionIntent);
         }
     }
-
-
 }
+
+
+
