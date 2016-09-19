@@ -40,10 +40,14 @@ public class MainActivity extends AppCompatActivity{
                 apiResponse.execute();
             }
         });
+
+
         Button testSliderButton = (Button) findViewById(R.id.testButton);
         testSliderButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                startActivity(new Intent(getApplicationContext(), ScreenSlidePagerActivity.class));
+                Intent newIntent = new Intent(getApplicationContext(), ScreenSlidePagerActivity.class);
+                newIntent.putExtra("getData", masterArray.toString());
+                startActivity(newIntent);
             }
         });
 
@@ -101,7 +105,7 @@ public class MainActivity extends AppCompatActivity{
 
             //Activate the main button after API has been pinged, and masterArray filled
 
-            Intent restaurantSuggestionIntent = new Intent(getApplicationContext(), RestaurantSuggestionActivity.class);
+            Intent restaurantSuggestionIntent = new Intent(getApplicationContext(), ScreenSlidePagerActivity.class);
             restaurantSuggestionIntent.putExtra("getData", masterArray.toString());
             startActivity(restaurantSuggestionIntent);
         }

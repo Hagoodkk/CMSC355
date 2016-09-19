@@ -10,12 +10,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.widget.TextView;
+
+import org.json.JSONArray;
 
 public class ScreenSlidePagerActivity extends FragmentActivity {
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
-    private static final int NUM_PAGES = 5;
+    private static final int NUM_PAGES = 19;
+    private JSONArray masterArray = new JSONArray();
+    private int counter = 0;
 
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
@@ -37,19 +42,23 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null){
+            try {
+                masterArray = new JSONArray(extras.getString("getData"));
+                System.out.println(masterArray.toString(4));
+            }catch(Exception e){}
+        }
+        else System.out.println("It's null!");
     }
 
     @Override
     public void onBackPressed() {
-        if (mPager.getCurrentItem() == 0) {
-            // If the user is currently looking at the first step, allow the system to handle the
-            // Back button. This calls finish() on this activity and pops the back stack.
-            super.onBackPressed();
-        } else {
-            // Otherwise, select the previous step.
-            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
-        }
+        super.onBackPressed();
     }
+
+
 
     /**
      * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
@@ -62,12 +71,23 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return new ScreenSlidePageFragment();
+            ScreenSlidePageFragment newPane = new ScreenSlidePageFragment();
+            try {
+                String restaurantName = masterArray.getJSONObject(counter).get("name").toString();
+                String url = masterArray.getJSONObject(counter).get("image_url").toString();
+                newPane.setRestaurantName(restaurantName);
+                newPane.setUrl(url);
+            }catch(Exception e){ e.printStackTrace(); }
+            finally{ increaseCounter(); }
+            return newPane;
         }
 
         @Override
         public int getCount() {
             return NUM_PAGES;
+        }
+        public void increaseCounter(){
+            counter++;
         }
     }
 }
