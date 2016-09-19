@@ -40,6 +40,7 @@ public class RestaurantSuggestionActivity extends AppCompatActivity {
             try {
                 masterArray = new JSONArray(extras.getString("getData"));
                 System.out.println(masterArray.toString(4));
+                System.out.println(masterArray.getJSONObject(1).toString(4));
             }catch(Exception e){}
         }
 
@@ -51,8 +52,8 @@ public class RestaurantSuggestionActivity extends AppCompatActivity {
         String url = null;
         String restaurantName = null;
         try{
-            url = masterArray.getJSONObject(0).get("image_url").toString();
-            restaurantName = masterArray.getJSONObject(0).get("name").toString();
+            url = masterArray.getJSONObject(19).get("image_url").toString();
+            restaurantName = masterArray.getJSONObject(19).get("name").toString();
         }catch(Exception e){}
 
         //Set the values using parameters from masterArray
