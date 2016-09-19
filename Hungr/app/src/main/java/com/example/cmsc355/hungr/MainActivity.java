@@ -40,6 +40,12 @@ public class MainActivity extends AppCompatActivity{
                 apiResponse.execute();
             }
         });
+        Button testSliderButton = (Button) findViewById(R.id.testButton);
+        testSliderButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                startActivity(new Intent(getApplicationContext(), ScreenSlidePagerActivity.class));
+            }
+        });
 
     }
 

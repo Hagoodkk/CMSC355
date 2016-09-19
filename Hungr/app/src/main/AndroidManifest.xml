@@ -26,6 +26,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainActivity" />
         </activity>
+        <activity android:name=".ScreenSlidePageFragment" />
+        <activity android:name=".ScreenSlidePagerActivity"></activity>
     </application>
 
 </manifest>
